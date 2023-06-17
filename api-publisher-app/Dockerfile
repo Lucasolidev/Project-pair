@@ -2,7 +2,7 @@
 FROM python:3.8-slim-buster
 
 # Definindo o diretório de trabalho no container
-WORKDIR /App
+WORKDIR /app
 
 # Copiando os arquivos de requerimentos para o container
 COPY requirements.txt .
@@ -11,14 +11,16 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copiando o restante dos arquivos para o container
-COPY /App /App
+COPY /app /app
 COPY /tests /tests
-
-# Executando os testes
-RUN pytest
 
 # Expondo a porta onde a aplicação estará rodando
 EXPOSE 5000
 
+# Dando permissão de execução ao script entrypoint.sh
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Definindo o comando para rodar a aplicação
-CMD ["python", "/app/main.py"]
+CMD ["./entrypoint.sh"]
+
