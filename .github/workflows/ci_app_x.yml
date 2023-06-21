@@ -37,12 +37,12 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
-        username: ${{ lucasolidev }}
-        password: ${{ dckr_pat_RoskiHeFwqg8qHa1VBOwex7xmrU }}
+        username: ${{ secrets.lucasolidev }}
+        password: ${{ secrets.dckr_pat_RoskiHeFwqg8qHa1VBOwex7xmrU }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
         context: ./diretorio-app
         push: true
-        tags: docker.io/lucasolidev/nome-do-app:latest
+        tags: docker.io/lucasolidev/project-pair:latest
